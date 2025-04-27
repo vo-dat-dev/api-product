@@ -1,5 +1,7 @@
 package service.market.product.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +14,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1")
+@Tag(name = "Product", description = "Product API")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
     @GetMapping("/products")
+    @Operation(summary = "Get all product")
     public String getProducts() {
         return productService.getAllProducts().toString();
     }

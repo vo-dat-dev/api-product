@@ -5,7 +5,10 @@ import org.springframework.stereotype.Service;
 import service.market.product.dto.CreateProductDTO;
 import service.market.product.dto.UpdateProductDTO;
 import service.market.product.entity.Product;
+import service.market.product.entity.ProductCategory;
+import service.market.product.repository.ProductCategoryRepository;
 import service.market.product.repository.ProductRepository;
+
 import java.util.Collection;
 import java.util.Optional;
 
@@ -14,6 +17,9 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private ProductCategoryRepository productCategoryRepository;
+
     @Override
     public Collection<?> getAllProducts() {
         return this.productRepository.findAll();
@@ -21,7 +27,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product createProduct(CreateProductDTO product) {
-        return this.productRepository.save(product);
+        ProductCategory productCategory = null;
+        if (product.getCategoryId() != null) {
+            productCategory = this.productCategoryRepository.findById(product.getCategoryId()).orElseThrow(() -> new IllegalArgumentException("Category not found"));
+        }
+
+        Product newProduct = Product.builder().name(product.getName()).description(product.getDescription()).productCategory(productCategory).build();
+        return this.productRepository.save(newProduct);
     }
 
     @Override
@@ -31,10 +43,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product updateProduct(UpdateProductDTO product) {
-        Product newProduct = Product.builder()
-                .name(product.getName())
-                .description(product.getDescription())
-                .build();
+        Product newProduct = Product.builder().name(product.getName()).description(product.getDescription()).build();
         return this.productRepository.save(newProduct);
     }
 
