@@ -2,6 +2,8 @@ package service.market.product.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import service.market.product.dto.CreateProductCategoryDTO;
+import service.market.product.dto.UpdateProductCategoryDTO;
 import service.market.product.entity.ProductCategory;
 import service.market.product.repository.ProductCategoryRepository;
 

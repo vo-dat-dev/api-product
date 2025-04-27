@@ -2,6 +2,7 @@ package service.market.product.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.hibernate.sql.ast.tree.expression.Collation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import service.market.product.dto.UpdateProductDTO;
 import service.market.product.entity.Product;
 import service.market.product.service.ProductService;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @RestController
@@ -21,8 +23,9 @@ public class ProductController {
 
     @GetMapping("/products")
     @Operation(summary = "Get all product")
-    public String getProducts() {
-        return productService.getAllProducts().toString();
+    public ResponseEntity<Collection<?>> getProducts() {
+        Collection<?> products = this.productService.getAllProducts();
+        return ResponseEntity.ok(products);
     }
 
     @PostMapping("/product")

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.market.product.entity.ProductCategory;
-import service.market.product.service.CreateProductCategoryDTO;
+import service.market.product.dto.CreateProductCategoryDTO;
 import service.market.product.service.ProductCategoryService;
 
 import java.util.Collection;

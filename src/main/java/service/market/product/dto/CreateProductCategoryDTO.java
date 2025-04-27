@@ -1,4 +1,4 @@
-package service.market.product.service;
+package service.market.product.dto;
 
 import service.market.product.entity.ProductCategory;
 

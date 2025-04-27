@@ -1,5 +1,7 @@
 package service.market.product.service;
 
+import service.market.product.dto.CreateProductCategoryDTO;
+import service.market.product.dto.UpdateProductCategoryDTO;
 import service.market.product.entity.ProductCategory;
 
 import java.util.Collection;
