@@ -22,7 +22,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Collection<?> getAllProducts() {
-        return this.productRepository.findAll();
+        Collection<Product> products = this.productRepository.findAll();
+        return products;
     }
 
     @Override
@@ -37,8 +38,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> getProductDetail(Long id) {
-        return productRepository.findById(id);
+    public Product getProductDetail(Long id) {
+        Optional<Product> productDetail = this.productRepository.findById(id);
+        return productDetail.map(product -> Product.builder().id(product.getId()).name(product.getName()).description(product.getDescription()).build()).orElse(null);
     }
 
     @Override
