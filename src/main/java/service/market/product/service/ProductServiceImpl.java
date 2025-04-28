@@ -3,6 +3,7 @@ package service.market.product.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import service.market.product.dto.CreateProductDTO;
+import service.market.product.dto.FilterProductDTO;
 import service.market.product.dto.UpdateProductDTO;
 import service.market.product.entity.Product;
 import service.market.product.entity.ProductCategory;
@@ -21,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
     private ProductCategoryRepository productCategoryRepository;
 
     @Override
-    public Collection<?> getAllProducts() {
+    public Collection<?> getAllProducts(FilterProductDTO filter) {
         Collection<Product> products = this.productRepository.findAll();
         return products;
     }

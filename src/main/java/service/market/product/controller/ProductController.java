@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.market.product.dto.CreateProductDTO;
+import service.market.product.dto.FilterProductDTO;
 import service.market.product.dto.UpdateProductDTO;
 import service.market.product.entity.Product;
 import service.market.product.service.ProductService;
@@ -23,8 +24,21 @@ public class ProductController {
 
     @GetMapping("/products")
     @Operation(summary = "Get all product")
-    public ResponseEntity<Collection<?>> getProducts() {
-        Collection<?> products = this.productService.getAllProducts();
+    public ResponseEntity<Collection<?>> getProducts(@RequestParam(required = false) Long id, @RequestParam(required = false) String name, @RequestParam(required = false) String description) {
+        FilterProductDTO.FilterProductDTOBuilder filter = FilterProductDTO.builder();
+        if (id != null) {
+            filter.id(id);
+        }
+
+        if (name != null) {
+            filter.name(name);
+        }
+
+        if (description != null) {
+            filter.description(description);
+        }
+
+        Collection<?> products = this.productService.getAllProducts(filter.build());
         return ResponseEntity.ok(products);
     }
 
